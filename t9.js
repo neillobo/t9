@@ -92,7 +92,8 @@ Node.prototype.getWordLocations = function(keys) {
   } else {
 
     //otherwise shift off the first element
-    var num = parseInt(keys.shift());
+    var tempKeys = keys;
+    var num = parseInt(tempKeys.shift());
     // debugger;
     //if there is a node at this num
     if (this._children[num] !== null) {
