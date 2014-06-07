@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Mocha Spec Runner</title>
-  <link rel="stylesheet" href="bower_components/mocha/mocha.css">
+  <link rel="stylesheet" href="bower_components/mocha/mocha.css"/>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="mocha"></div>
@@ -12,6 +13,11 @@
   <script>mocha.setup('')</script>
   <script src="bower_components/chai/chai.js"></script>
   <script src="http://underscorejs.org/underscore.js"></script>
+
+  <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+  <script src="http://fb.me/react-0.8.0.js"></script>
+  <script src="http://fb.me/JSXTransformer-0.8.0.js"></script>
+
   <script>
     var assert = chai.assert;
     var expect = chai.expect;
@@ -19,13 +25,16 @@
   </script>
 
   <!-- include source files here... -->
-  <script src="words.js"></script>
   <script src="t9.js"></script>
+
+  <script type="text/jsx" src="react.js"></script>
 
   <!-- include spec files here... -->
 
   <script src="spec/t9.js"></script>
 
-  <script>mocha.run()</script>
+  <script>//mocha.run()</script>
+
+  <div id="container" class="container"> </div>
 </body>
 </html>
