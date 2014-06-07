@@ -6,18 +6,25 @@ var words = "the of to and a in is it you that he was for on are with as I his t
 
 //we don't have to sort because the tree will do that for us
 var wordsArray = words.split(' ');
-wordsArray = ["the", "cat"];
 
 var keyboard = [null, null, 'abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz'];
 var inverseKeyboard = {
   a: 2, b: 2, c: 2,
+  A: 2, B: 2, C: 2,
   d: 3, e: 3, f: 3,
+  D: 3, E: 3, F: 3,
   g: 4, h: 4, i: 4,
+  G: 4, H: 4, I: 4,
   j: 5, k: 5, l: 5,
+  J: 5, K: 5, L: 5,
   m: 6, n: 6, o: 6,
+  M: 6, N: 6, O: 6,
   p: 7, q: 7, r: 7, s: 7,
+  P: 7, Q: 7, R: 7, S: 7,
   t: 8, u: 8, v: 8,
-  w: 9, x: 9, y: 9, z: 9
+  T: 8, U: 8, V: 8,
+  w: 9, x: 9, y: 9, z: 9,
+  W: 9, X: 9, Y: 9, Z: 9
 }
 
 
@@ -59,7 +66,9 @@ Node.prototype.addWord = function (word, indexOfWord) {
     };
 
     //and call add word at that node
-
+    if (this._children[num] === undefined) {
+      debugger;
+    }
     this._children[num].addWord(word, indexOfWord);
   }
 };
@@ -70,7 +79,7 @@ Node.prototype.addWord = function (word, indexOfWord) {
 Node.prototype.getWordLocations = function(keys) {
 
   //if keys' length is 1
-  if (keys.length === 1) {
+  if (keys.length === 0) {
     //return this._wordLocations and the word locations of ALL children
     var result = this._wordLocations;
     for (var i = 0; i < 10; i++) {
@@ -90,7 +99,7 @@ Node.prototype.getWordLocations = function(keys) {
       //pass the remaining array to the child at the appropriate #
       return this._children[num].getWordLocations(keys);
     } else {
-      return null;
+      return [];
     }
   }
 };
@@ -100,10 +109,11 @@ var buildTree = function(wordsList) {
 
   //the head has a 0 value (i.e. no valid keypresses yet)
   var head = new Node(0);
+  head._wordsList = wordsList;
 
   //add all words to our node
-  for (var i = 0; i < wordsList.length; i++ ) {
-    head.addWord(wordsList[i].split(""), i);    
+  for (var i = 0; i < head._wordsList.length; i++ ) {
+    head.addWord(head._wordsList[i].split(""), i);    
   };
 
 
@@ -119,7 +129,7 @@ var buildTree = function(wordsList) {
     if (resultsLocations !== null) {
       var results = [];
       for (var i = 0; i <resultsLocations.length; i++) {
-        results.push(wordsList[i]);
+        results.push(head._wordsList[resultsLocations[i]]);
       }
     }
     return results;

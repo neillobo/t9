@@ -15,8 +15,6 @@ var SearchBox = React.createClass({
   handleSearch: function (keys) {
     var filteredData = t9Tree.retrieve(keys)
     this.setState({data: filteredData});
-    console.log(this.state.data);
-
   },
 
   getInitialState: function() {
@@ -49,9 +47,10 @@ var SearchResults = React.createClass({
 var SearchForm = React.createClass({
   handleSearch: function() {
     var keyPresses = this.refs.keyPresses.getDOMNode().value.trim();
+    if (keyPresses.split("").length !== 0){
     
-    this.props.onSearch(keyPresses);
-    this.refs.keyPresses.getDOMNode().value = '';
+      this.props.onSearch(keyPresses);  
+    }
     return false;
   },
   render: function() {
