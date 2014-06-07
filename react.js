@@ -31,6 +31,8 @@ var SearchBox = React.createClass({
     return (
       <div className="searchBox">
         <h1>t9 word search</h1>
+        <img height="400" width="500" src="http://www.extremetech.com/wp-content/uploads/2011/10/T9-Keypad.jpg" />
+        <div></div>
         <SearchForm onSearch={this.handleSearch} />
         <SearchResults data={this.state.data} />
       </div>
