@@ -7,23 +7,15 @@ var wordsArray = words.split(' ');
 
 // var alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
-var inverseKeyboard = {
-  a: 2, b: 2, c: 2,
-  A: 2, B: 2, C: 2,
-  d: 3, e: 3, f: 3,
-  D: 3, E: 3, F: 3,
-  g: 4, h: 4, i: 4,
-  G: 4, H: 4, I: 4,
-  j: 5, k: 5, l: 5,
-  J: 5, K: 5, L: 5,
-  m: 6, n: 6, o: 6,
-  M: 6, N: 6, O: 6,
-  p: 7, q: 7, r: 7, s: 7,
-  P: 7, Q: 7, R: 7, S: 7,
-  t: 8, u: 8, v: 8,
-  T: 8, U: 8, V: 8,
-  w: 9, x: 9, y: 9, z: 9,
-  W: 9, X: 9, Y: 9, Z: 9
+var keyboard = {
+  2: ['a','b','c'],
+  3: ['d','e','f'],
+  4: ['g','h','i'],
+  5: ['j','k','l'],
+  6: ['m','n','o'],
+  7: ['p','q','r','s'],
+  8: ['t','u','v'],
+  9: ['x','y','z']
 };
 
 var Tree = function () {
@@ -50,14 +42,47 @@ Tree.prototype.insert = function (word) {
 };
 
 // number is a string!!!!
-Tree.prototype.autocomplete = function (number, currentCombination, allCombination) {
+Tree.prototype.autocomplete = function (numberString) {
+  //change number string to number array
+  var results = [];
+  var numberArray = numberString.split('');
+  //reverse lookup the number array as a letter array
 
-  var numberArray = number.split('');
 
-  while (numberArray.length > 0) {
+  //two-part problem which has the first part
+  //as a walk down the tree
+  //second part is retrieving all nodes
+  //which have indexes below the last traversed nodes
 
+  //call search with given numberArray
+
+  function search(numberArray,currentNode){
+    currentNode = currentNode || this.root;
+
+    var number = numberArray.shift();
+    var possibleKeys = keyboard[number];
+
+
+    for(var i = 0; i<possibleKeys.length; i++){
+      var letter = possibleKeys[i];
+      if (currentNode[letter]) {
+        if(currentNode.wordIndex){
+          results.push(currentNode.wordIndex);
+        }
+        if (numberArray.length > 0) {
+          search(numberArray, currentNode[letter]);
+        }
+      }
+
+    }
   }
+  search(numberArray);
+
+  return results;
+
 };
+
+
 
 var Node = function (data, wordIndex) {
   this.data = data;
